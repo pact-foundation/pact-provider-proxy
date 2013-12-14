@@ -26,7 +26,7 @@ If you are using a pact-proxy to run your pact verify task, it is probably becau
 Specifying a pact_helper is optional, and is only required if you are using provider states.
 
 ```ruby
-require 'pact/proxy/tasks'
+require 'pact/provider/proxy/tasks'
 
 Pact::ProxyVerificationTask.new :monolith do | task |
  task.pact_url './spec/pacts/my-consumer_my-monolith.json', :pact_helper => './spec/support/monolith_pact_helper'
