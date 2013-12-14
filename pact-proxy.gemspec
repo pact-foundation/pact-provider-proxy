@@ -1,0 +1,25 @@
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'pact/proxy/version'
+
+Gem::Specification.new do |spec|
+  spec.name          = "pact-proxy"
+  spec.version       = Pact::Proxy::VERSION
+  spec.authors       = ["Beth"]
+  spec.email         = ["beth@bethesque.com"]
+  spec.description   = %q{See summary}
+  spec.summary       = %q{Allows verification of a pact against a running provider}
+  spec.homepage      = ""
+  spec.license       = "MIT"
+
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ["lib"]
+
+  spec.add_dependency "rack-reverse-proxy"
+  spec.add_dependency "pact"
+  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "rake"
+end
