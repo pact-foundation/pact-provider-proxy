@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'pact/proxy/version'
+require 'pact/provider/proxy/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "pact-proxy"
-  spec.version       = Pact::Proxy::VERSION
+  spec.name          = "pact-provider-proxy"
+  spec.version       = Pact::Provider::Proxy::VERSION
   spec.authors       = ["Beth"]
   spec.email         = ["beth@bethesque.com"]
   spec.description   = %q{See summary}

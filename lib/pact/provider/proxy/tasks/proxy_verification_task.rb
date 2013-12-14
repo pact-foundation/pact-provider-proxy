@@ -29,7 +29,7 @@ module Pact
     end
 
     def pact_helper_url
-      File.expand_path('../../pact_helper', __FILE__)
+      File.expand_path('../../../pact_helper', __FILE__)
     end
 
     private
@@ -42,7 +42,7 @@ module Pact
         task "verify:#{name}", :description, :provider_state do |t, args|
 
           require 'pact/provider/pact_spec_runner'
-          require 'pact/proxy/configure_service_provider'
+          require 'pact/provider/proxy/configure_service_provider'
 
           Pact::Proxy::ConfigureServiceProvider.call @provider_base_url
           options = {criteria: spec_criteria(args)}

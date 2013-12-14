@@ -1,4 +1,4 @@
-require 'pact/proxy/tasks'
+require 'pact/provider/proxy/tasks'
 
 Pact::ProxyVerificationTask.new :monolith do | task |
  task.pact_url './spec/support/pact.json', :pact_helper => './spec/support/pact_helper'

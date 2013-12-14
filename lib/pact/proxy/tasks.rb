@@ -1,1 +1,0 @@
-require 'pact/proxy/tasks/proxy_verification_task'
