@@ -43,7 +43,7 @@ If you have access to your provider code base, and are able to spawn an instance
 ```ruby
 
 Pact::ProxyVerificationTask.new :running_local_monolith do | task |
- task.pact_uri './spec/pacts/my-consumer_my-local-monolith.json'
+ task.pact_url './spec/pacts/my-consumer_my-local-monolith.json'
  task.provider_base_url 'http://localhost:8080'
 end
 

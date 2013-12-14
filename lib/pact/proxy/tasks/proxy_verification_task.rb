@@ -16,9 +16,13 @@ module Pact
       rake_task
     end
 
-    def pact_uri(uri, options = {})
+
+    def pact_url(uri, options = {})
       @pact_spec_configs << {uri: uri, pact_helper: options.fetch(:pact_helper, pact_helper_url)}
     end
+
+    # For compatiblity with the normal VerificationTask, allow task.uri
+    alias_method :uri, :pact_url
 
     def provider_base_url url
       @provider_base_url = url
@@ -41,7 +45,6 @@ module Pact
           require 'pact/proxy/configure_service_provider'
 
           Pact::Proxy::ConfigureServiceProvider.call @provider_base_url
-
           options = {criteria: spec_criteria(args)}
 
           handle_verification_failure do
