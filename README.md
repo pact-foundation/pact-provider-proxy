@@ -1,4 +1,4 @@
-# Pact::Proxy
+# Pact::Provider::Proxy
 
 Allows pact verification against a running provider at a configurable base URL (normal pact verification is run against a code base using Rack::Test::Methods - no process is actually spawned).
 
@@ -8,7 +8,7 @@ This allows testing against providers where you have access to a running instanc
 
 Add this line to your application's Gemfile:
 
-    gem 'pact-proxy'
+    gem 'pact-provider-proxy'
 
 And then execute:
 
@@ -16,12 +16,12 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install pact-proxy
+    $ gem install pact-provider-proxy
 
 ## Usage
 
 Usually, you would configure and run pact:verify in the provider code base.
-If you are using a pact-proxy to run your pact verify task, it is probably because you don't have access to the code base of the provider project, or it is not a ruby project, so it may make sense to include this task in your consumer project.
+If you are using pact-provider-proxy to run your pact verify task, it is probably because you don't have access to the code base of the provider project, or it is not a ruby project, so it may make sense to include this task in your consumer project.
 
 Specifying a pact_helper is optional, and is only required if you are using provider states.
 
@@ -38,7 +38,7 @@ Then run:
 
     $ rake pact:verify:monolith
 
-If you have access to your provider code base, and are able to spawn an instance locally, you could add some rake tasks to start and stop your server. (Please note, I have actually run this code, I just think it should work...)
+If you have access to your provider code base, and are able to spawn an instance locally, you could add some rake tasks to start and stop your server. (Please note, I have not actually run this code, I just think it should work...)
 
 ```ruby
 
@@ -66,7 +66,7 @@ end
 
 ```
 
-If a ruby adapter to the underlying datastore cannot be used to set up provider states, shell scripts that invoke code in the native language might work. If you have access to the code base, another alternative could be to provide an endpoint on your app that sets up data inside itself, that is only mounted in test mode. eg 'http://localhost:8080/setUpProviderState?name=a%20thing%20exists' and 'http://localhost:8080/tearDownProviderState?name=a%20thing%20exists'
+If a ruby adapter to the underlying datastore cannot be used to set up provider states, shell scripts that invoke code in the native language might work. If you have access to the code base, another alternative could be to provide an endpoint on your app that sets up data inside itself, that is only mounted in test mode. eg 'http://localhost:8080/set-up-provider-state?name=a%20thing%20exists' and 'http://localhost:8080/tear-down-provider-state?name=a%20thing%20exists'
 
 ## Contributing
 
