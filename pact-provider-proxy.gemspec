@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Allows verification of a pact against a running provider}
   spec.homepage      = ""
   spec.license       = "MIT"
+  spec.homepage      = "https://github.com/bethesque/pact-provider-proxy"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
