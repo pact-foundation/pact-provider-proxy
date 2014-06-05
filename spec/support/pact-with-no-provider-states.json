@@ -1,0 +1,17 @@
+{
+  "consumer" : { "name": "a consumer"},
+  "provider" : { "name": "a running provider"},
+  "interactions": [
+    {
+      "description": "a request for the index",
+      "provider_state": null,
+      "request" : {
+        "method" : "get", "path": "/"
+        },
+      "response": {
+        "status" : 200
+      }
+    }
+
+  ]
+}

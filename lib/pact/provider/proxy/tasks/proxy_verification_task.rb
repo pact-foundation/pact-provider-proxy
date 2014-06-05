@@ -1,10 +1,7 @@
 require 'rake/tasklib'
-require 'pact/tasks/task_helper'
 
 module Pact
   class ProxyVerificationTask < ::Rake::TaskLib
-
-    include Pact::TaskHelper
 
     attr_reader :pact_spec_configs
 
@@ -18,7 +15,7 @@ module Pact
 
 
     def pact_url(uri, options = {})
-      @pact_spec_configs << {uri: uri, pact_helper: options.fetch(:pact_helper, pact_helper_url)}
+      @pact_spec_configs << {uri: uri, pact_helper: options[:pact_helper]}
     end
 
     # For compatiblity with the normal VerificationTask, allow task.uri
@@ -28,28 +25,37 @@ module Pact
       @provider_base_url = url
     end
 
-    def pact_helper_url
-      File.expand_path('../../../pact_helper', __FILE__)
-    end
-
     private
 
     attr_reader :name
 
+    def project_pact_helper_path
+      begin
+        Pact::Provider::PactHelperLocater.pact_helper_path
+      rescue
+        ''
+      end
+    end
+
     def rake_task
       namespace :pact do
-        desc "Verify provider against the consumer pacts for #{name}"
-        task "verify:#{name}", :description, :provider_state do |t, args|
+        desc "Verify running provider against the consumer pacts for #{name}"
+        task "verify:#{name}" do |t, args|
 
-          require 'pact/provider/pact_spec_runner'
-          require 'pact/provider/proxy/configure_service_provider'
+          require 'pact/provider/proxy/task_helper'
 
-          Pact::Proxy::ConfigureServiceProvider.call @provider_base_url
-          options = {criteria: spec_criteria(args)}
+          proxy_pact_helper = File.expand_path('../../proxy_pact_helper.rb', __FILE__)
 
-          handle_verification_failure do
-            Provider::PactSpecRunner.new(@pact_spec_configs, options).run
+          exit_statuses = pact_spec_configs.collect do | config |
+            ENV['PACT_PROVIDER_BASE_URL'] = @provider_base_url
+            ENV['PACT_PROJECT_PACT_HELPER'] = config[:pact_helper] || project_pact_helper_path
+            Pact::Provider::Proxy::TaskHelper.execute_pact_verify config[:uri], proxy_pact_helper
           end
+
+          Pact::Provider::Proxy::TaskHelper.handle_verification_failure do
+            exit_statuses.count{ | status | status != 0 }
+          end
+
         end
       end
     end
