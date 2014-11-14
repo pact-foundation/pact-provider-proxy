@@ -29,14 +29,6 @@ module Pact
 
     attr_reader :name
 
-    def project_pact_helper_path
-      begin
-        Pact::Provider::PactHelperLocater.pact_helper_path
-      rescue
-        ''
-      end
-    end
-
     def rake_task
       namespace :pact do
         desc "Verify running provider against the consumer pacts for #{name}"
@@ -48,7 +40,7 @@ module Pact
 
           exit_statuses = pact_spec_configs.collect do | config |
             ENV['PACT_PROVIDER_BASE_URL'] = @provider_base_url
-            ENV['PACT_PROJECT_PACT_HELPER'] = config[:pact_helper] || project_pact_helper_path
+            ENV['PACT_PROJECT_PACT_HELPER'] = config[:pact_helper]
             Pact::Provider::Proxy::TaskHelper.execute_pact_verify config[:uri], proxy_pact_helper
           end
 

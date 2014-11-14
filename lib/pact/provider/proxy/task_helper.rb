@@ -9,7 +9,7 @@ module Pact
         extend self
 
         def execute_pact_verify pact_uri = nil, pact_helper = nil
-          execute_cmd verify_command(pact_helper || Pact::Provider::PactHelperLocater.pact_helper_path, pact_uri)
+          execute_cmd verify_command(pact_helper, pact_uri)
         end
 
         def handle_verification_failure
