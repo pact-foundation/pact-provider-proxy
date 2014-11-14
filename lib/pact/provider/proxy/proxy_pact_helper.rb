@@ -1,3 +1,7 @@
+# This pact_helper is always set as the pact_helper for the `pact verify` command.
+# If there was a pact_helper specified by the user, its location is stored in
+# ENV['PACT_PROJECT_PACT_HELPER'] and it is loaded by this pact_helper.
+
 require 'pact/provider/rspec'
 require 'rack/reverse_proxy'
 
