@@ -30,7 +30,7 @@ require 'pact/provider/proxy/tasks'
 
 Pact::ProxyVerificationTask.new :monolith do | task |
  task.pact_url './spec/pacts/my-consumer_my-monolith.json', :pact_helper => './spec/support/monolith_pact_helper'
- task.provider_base_url 'http://my-monolith'
+ task.provider_base_url 'http://my-monolith' #scheme, host and optional port
 end
 ```
 
