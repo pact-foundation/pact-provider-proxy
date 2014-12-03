@@ -23,14 +23,14 @@ Or install it yourself as:
 Usually, you would configure and run pact:verify in the provider code base.
 If you are using pact-provider-proxy to run your pact verify task, it is probably because you don't have access to the code base of the provider project, or it is not a ruby project, so it may make sense to include this task in your consumer project.
 
-Specifying a pact_helper is optional, and is only required if you are using provider states.
+Specifying a pact_helper is optional, and is only required if you are using provider states or you need to configure Pact. Note that the pact_helper for the `ProxyVerificationTask` will not be automatically loaded like it is for the regular `pact:verify` - you must specify the path yourself if you need one (see the example below). The configuration options for the provider code will be different from the consumer code, so you cannot reuse the pact_helper from your consumer tests.
 
 ```ruby
 require 'pact/provider/proxy/tasks'
 
 Pact::ProxyVerificationTask.new :monolith do | task |
  task.pact_url './spec/pacts/my-consumer_my-monolith.json', :pact_helper => './spec/support/monolith_pact_helper'
- task.provider_base_url 'http://my-monolith' #scheme, host and optional port
+ task.provider_base_url 'http://my-monolith:8080' #scheme, host and optional port
 end
 ```
 
