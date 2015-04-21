@@ -14,13 +14,7 @@ namespace :pact do
   namespace :test do
     task :spawn_test_monolith do
       require 'pact/mock_service/app_manager'
-      app = lambda { | env |
-        if env['PATH_INFO'] == '/some-path' && env['QUERY_STRING'] == 'foo=bar'
-          [200, {}, ["Monolith!"]]
-        else
-          [500, {}, []]
-        end
-      }
+      app = lambda { | env | [200, {}, ["Monolith!"]] }
       Pact::MockService::AppManager.instance.register app, 9292
       Pact::MockService::AppManager.instance.spawn_all
     end
