@@ -13,9 +13,16 @@ end
 namespace :pact do
   namespace :test do
     task :spawn_test_monolith do
-      require 'pact/consumer/app_manager'
-      Pact::Consumer::AppManager.instance.register lambda { | env | [200, {}, ["Monolith!"]] }, 9292
-      Pact::Consumer::AppManager.instance.spawn_all
+      require 'pact/mock_service/app_manager'
+      app = lambda { | env |
+        if env['PATH_INFO'] == '/some-path' && env['QUERY_STRING'] == 'foo=bar'
+          [200, {}, ["Monolith!"]]
+        else
+          [500, {}, []]
+        end
+      }
+      Pact::MockService::AppManager.instance.register app, 9292
+      Pact::MockService::AppManager.instance.spawn_all
     end
   end
 end
@@ -39,8 +46,10 @@ end
 task 'pact:verify:monolith' => ['pact:test:spawn_test_monolith', 'delete_pact_helper', 'create_custom_pact_helper']
 task 'pact:verify:monolith_no_pact_helper' => ['pact:test:spawn_test_monolith', 'delete_pact_helper', 'create_pact_helper_that_should_not_be_loaded']
 
+require 'rspec/core/rake_task'
 
-task :spec => ['pact:verify:monolith_no_pact_helper','pact:verify:monolith']
-task :default => [:spec]
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => [:spec, 'pact:verify:monolith_no_pact_helper','pact:verify:monolith']
 
 
