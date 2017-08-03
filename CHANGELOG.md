@@ -1,5 +1,8 @@
 git log --pretty=format:'  * %h - %s (%an, %ad)'
 
+### 2.2.0 (3 Aug 2017)
+* 8a872c2 - feat(ssl verify none): Turn off SSL verification so that servers can run using self signed certificates. (Beth Skurrie, Thu Aug 3 14:04:26 2017 +1000)
+
 ### 2.1.0 (21 April 2015)
 
 * c94657c - Pass through PACT_DESCRIPTION, PACT_PROVIDER_STATE and BACKTRACE env vars to pact verify command (Beth Skurrie, Tue Apr 21 14:31:47 2015 +1000)
