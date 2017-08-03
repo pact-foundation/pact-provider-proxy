@@ -1,5 +1,7 @@
 # Pact::Provider::Proxy
 
+[![Build Status](https://travis-ci.org/pact-foundation/pact-provider-proxy.svg?branch=master)](https://travis-ci.org/pact-foundation/pact-provider-proxy)
+
 Allows pact verification against a running provider at a configurable base URL (normal pact verification is run against a code base using Rack::Test::Methods - no process is actually spawned).
 
 This allows testing against providers where you have access to a running instance of a provider, but you do not have access to its code base, or where the provider is not a ruby application.
