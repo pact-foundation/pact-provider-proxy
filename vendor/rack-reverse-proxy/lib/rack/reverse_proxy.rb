@@ -105,7 +105,7 @@ module Rack
     end
 
     def reconstruct_header_name(name)
-      name.sub(/^HTTP_/, "").split("_").collect(&:capitalize).join("-")
+      name.sub(/^HTTP_/, "").gsub("_", "-")
     end
 
     def get_matcher(path, headers, rackreq)
