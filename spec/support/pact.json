@@ -6,10 +6,17 @@
       "description": "a request for the index",
       "provider_state": "some state",
       "request" : {
-        "method" : "get", "path": "/"
-        },
+        "method" : "get",
+        "path": "/",
+        "headers": {
+          "X-Expiry": "2016-01-01"
+        }
+      },
       "response": {
         "status" : 200,
+        "headers": {
+          "Content-Type": "text/plain"
+        },
         "body": "Monolith!"
       }
     }
