@@ -70,7 +70,7 @@ end
 
 ```
 
-If you need to modify your request before replaying it (eg. to set a valid token), then follow the example in (spec/support/middleware_pact_helper.rb)[spec/support/middleware_pact_helper.rb].
+If you need to modify your request before replaying it (eg. to set a valid token), then follow the example in [spec/support/middleware_pact_helper.rb](spec/support/middleware_pact_helper.rb).
 
 If a ruby adapter to the underlying datastore cannot be used to set up provider states, shell scripts that invoke code in the native language might work. If you have access to the code base, another alternative could be to provide an endpoint on your app that sets up data inside itself, that is only mounted in test mode. eg 'http://localhost:8080/set-up-provider-state?name=a%20thing%20exists' and 'http://localhost:8080/tear-down-provider-state?name=a%20thing%20exists'
 
