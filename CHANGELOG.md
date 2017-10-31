@@ -1,5 +1,8 @@
 git log --pretty=format:'  * %h - %s (%an, %ad)'
 
+### 2.3.0 (2017-10-31)
+* e76a469 - feat: add provider_app_version and publish_verification_results to rake task (Beth Skurrie, Tue Oct 31 16:02:15 2017 +1100)
+
 ### 2.2.0 (3 Aug 2017)
 * 8a872c2 - feat(ssl verify none): Turn off SSL verification so that servers can run using self signed certificates. (Beth Skurrie, Thu Aug 3 14:04:26 2017 +1000)
 
