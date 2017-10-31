@@ -9,6 +9,8 @@ module Pact
       @pact_spec_configs = []
       @provider_base_url = nil
       @name = name
+      @publish_verification_results = false
+      @provider_app_version = nil
       yield self
       rake_task
     end
@@ -23,6 +25,14 @@ module Pact
 
     def provider_base_url url
       @provider_base_url = url
+    end
+
+    def provider_app_version provider_app_version
+      @provider_app_version = provider_app_version
+    end
+
+    def publish_verification_results publish_verification_results
+      @publish_verification_results = publish_verification_results
     end
 
     private
@@ -41,6 +51,8 @@ module Pact
           exit_statuses = pact_spec_configs.collect do | config |
             ENV['PACT_PROVIDER_BASE_URL'] = @provider_base_url
             ENV['PACT_PROJECT_PACT_HELPER'] = config[:pact_helper]
+            ENV['PACT_PROVIDER_APP_VERSION'] = @provider_app_version
+            ENV['PACT_PUBLISH_VERIFICATION_RESULTS'] = "#{@publish_verification_results}"
             Pact::Provider::Proxy::TaskHelper.execute_pact_verify config[:uri], proxy_pact_helper
           end
 

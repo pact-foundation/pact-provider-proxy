@@ -35,6 +35,8 @@ require 'pact/provider/proxy/tasks'
 Pact::ProxyVerificationTask.new :monolith do | task |
  task.pact_url './spec/pacts/my-consumer_my-monolith.json', :pact_helper => './spec/support/monolith_pact_helper'
  task.provider_base_url 'http://my-monolith:8080' #scheme, host and optional port
+ task.provider_app_version '1.2.3'
+ task.publish_verification_results true
 end
 ```
 

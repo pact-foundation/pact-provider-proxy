@@ -11,6 +11,14 @@ Pact.service_provider "Running Provider Application" do
       reverse_proxy '/', ENV.fetch('PACT_PROVIDER_BASE_URL')
     end
   end
+
+  if ENV.fetch('PACT_PROVIDER_APP_VERSION', '') != ''
+    app_version ENV['PACT_PROVIDER_APP_VERSION']
+  end
+
+  if ENV.fetch('PACT_PUBLISH_VERIFICATION_RESULTS', '') != ''
+    publish_verification_results ENV['PACT_PUBLISH_VERIFICATION_RESULTS'] == 'true'
+  end
 end
 
 require ENV['PACT_PROJECT_PACT_HELPER'] if ENV.fetch('PACT_PROJECT_PACT_HELPER','') != ''

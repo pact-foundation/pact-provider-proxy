@@ -10,6 +10,13 @@ Pact::ProxyVerificationTask.new :monolith do | task |
  task.provider_base_url 'http://localhost:9292'
 end
 
+Pact::ProxyVerificationTask.new :monolith_with_verification do | task |
+ task.pact_url 'http://localhost:9293/pacts/provider/a%20running%20provider/consumer/a%20consumer/latest', :pact_helper => './spec/support/custom_pact_helper'
+ task.provider_base_url 'http://localhost:9292'
+ task.publish_verification_results true
+ task.provider_app_version '1.2.3'
+end
+
 Pact::ProxyVerificationTask.new :monolith_ssl do | task |
  task.pact_url './spec/support/pact.json', :pact_helper => './spec/support/custom_pact_helper'
  task.provider_base_url 'https://localhost:9393'
@@ -84,6 +91,7 @@ task 'create_custom_pact_helper' do
 end
 
 task 'pact:verify:monolith' => ['pact:test:spawn_test_monolith', 'delete_pact_helper', 'create_custom_pact_helper']
+task 'pact:verify:monolith_with_verification' => ['pact:test:spawn_test_monolith', 'delete_pact_helper', 'create_custom_pact_helper']
 task 'pact:verify:monolith_ssl' => ['pact:test:spawn_test_monolith_ssl', 'delete_pact_helper', 'create_custom_pact_helper']
 task 'pact:verify:monolith_no_pact_helper' => ['pact:test:spawn_test_monolith', 'delete_pact_helper', 'create_pact_helper_that_should_not_be_loaded']
 task 'pact:verify:middleware' => ['pact:test:spawn_test_monolith_which_needs_dynamic_header']
